@@ -1,0 +1,115 @@
+header:
+  version: 16
+
+machine: genio-1200-radxa-nio-12l-d4
+distro: rity-demo
+target:
+  - rity-demo-image
+
+defaults:
+  repos:
+    branch: kirkstone
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/git/poky.git
+    commit: dc98af7cabb7b5db6bfa82ef78baf9d7fd7827d2
+    path: layers/poky
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    commit: 8bb16533532b6abc2eded7d9961ab2a108fd7a5b
+    path: layers/meta-openembedded
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-multimedia:
+      meta-perl:
+
+  meta-arm:
+    url: https://git.yoctoproject.org/git/meta-arm
+    commit: d7b7b6fb6c7c5545e718e44f38853d1718ce5446
+    path: layers/meta-arm
+    layers:
+      meta-arm:
+      meta-arm-toolchain:
+
+  meta-rity:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-rity.git
+    commit: 550055e9beb58a43f8401090970c3e4416a64374
+    branch: release/rity-kirkstone
+    path: layers/meta-rity
+    layers:
+      meta:
+      meta-rity-bringup:
+      meta-rity-bsp:
+      meta-rity-demo:
+
+  meta-nn:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-nn.git
+    commit: c920f922e9859602234aa9773efc1aede39c3b7a
+    path: layers/meta-nn
+
+  meta-mediatek-tsn.git:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-tsn.git
+    commit: b91a6a227886ea88c97a31c805b19484874dfae7
+    path: layers/meta-mediatek-tsn.git
+
+  meta-mediatek-demo:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-demo.git
+    commit: 399ef9563e2ba6d887771138c01ab5aaad164b18
+    branch: release/rity-kirkstone
+    path: layers/meta-mediatek-demo
+
+  meta-mediatek-bsp:
+    url: https://github.com/radxa/meta-mediatek-bsp.git
+    commit: 5cf00bc7ccb5dcdd20c195b0b12752200b76c09e
+    branch: rity-kirkstone-v24.0
+    path: layers/meta-mediatek-bsp
+
+  meta-mediatek-bluedroid:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bluedroid.git
+    commit: 20571246269f93a393f3465d526d9f31638ddf65
+    path: layers/meta-mediatek-bluedroid
+
+  meta-tensorflow:
+    url: https://git.yoctoproject.org/git/meta-tensorflow.git
+    commit: f5f218c1ac055ef449ce779392ef426936d1bd2b
+    branch: master
+    path: layers/meta-tensorflow
+
+  meta-qt5:
+    url: https://github.com/meta-qt5/meta-qt5
+    commit: 644ebf220245bdc06e7696ccc90acc97a0dd2566
+    path: layers/meta-qt5
+
+  meta-tress-test:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-stress-test.git
+    commit: 9cf5525045ed4541bb5089e143032de9fee92305
+    path: layers/meta-tress-test
+
+  meta-security:
+    url: https://git.yoctoproject.org/meta-security
+    commit: 1a3e42cedbd94ca73be45800d0e902fec35d0f0f
+    path: layers/meta-security
+
+  meta-clang:
+    url: https://github.com/kraj/meta-clang
+    commit: 312ff1c39b1bf5d35c0321e873417eb013cea477
+    path: layers/meta-clang
+
+local_conf_header:
+  reduce_diskspace: |
+    INHERIT += "rm_work"
+  standard: |
+    CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_rpm"
+  debug-tweaks: |
+    EXTRA_IMAGE_FEATURES = "debug-tweaks"
+  licenses: |
+    LICENSE_FLAGS_ACCEPTED = "commercial"
